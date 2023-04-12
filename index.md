@@ -1,12 +1,13 @@
-# Title of Your Project
+# Campus Life & Graphing
 
 **CISC320 Spring 2023 Lesson 14 - Graph Applications**
 
 Group Members:
-* Simon Brugel (sbrugel@udel.edu)
-* Aman Singh (amans@udel.edu)
-* Ryan Sanchez (ryansan@udel.edu)
-* Gavin Caulfield (gavcaul@udel.edu)
+
+- Simon Brugel (sbrugel@udel.edu)
+- Aman Singh (amans@udel.edu)
+- Ryan Sanchez (ryansan@udel.edu)
+- Gavin Caulfield (gavcaul@udel.edu)
 
 Description of project
 
@@ -24,18 +25,19 @@ import networkx as nx
 
 # First Problem Title
 
-**Informal Description**: 
+**Informal Description**:
 
 > **Formal Description**:
->  * Input:
->  * Output:
+>
+> - Input:
+> - Output:
 
 **Graph Problem/Algorithm**: [DFS/BFS/SSSP/APSP/MST]
-
 
 **Setup code**:
 
 ```python
+
 ```
 
 **Visualization**:
@@ -45,12 +47,13 @@ import networkx as nx
 **Solution code:**
 
 ```python
+
 ```
 
 **Output**
 
 ```
+
 ```
 
 **Interpretation of Results**:
-
