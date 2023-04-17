@@ -109,13 +109,13 @@ G.add_edge('CISC 484', 'CISC 483')
 G.add_edge('CISC 372', 'CISC 361')
 
 find_requirements(G, src_course) # implementation details below.
-nx.draw(G, with_labels=True, font_weight='bold')
+nx.draw(G, pos=nx.circular_layout(G), with_labels=True, font_weight='bold')
 plt.show()
 ```
 
 **Visualization**:
 
-![Image goes here](Relative image filename goes here)
+![DFS visualization](dfs.png)
 
 **Solution code:**
 
