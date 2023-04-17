@@ -84,5 +84,5 @@ G.add_edge('CISC 372', 'CISC 361')
 find_requirements(G, src_course)
 
 # draw/show graph
-nx.draw(G, with_labels=True, font_weight='bold')
+nx.draw(G, pos=nx.circular_layout(G), with_labels=True, font_weight='bold')
 plt.show()
