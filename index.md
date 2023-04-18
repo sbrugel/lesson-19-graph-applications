@@ -273,7 +273,7 @@ W: 14
 
 **Interpretation of Results**:
 
-The results from this function can be very useful for understanding the layout of the campus. This result in particular shows the relative distance from McDowell Hall to every other represented building. Although the weights are based on walking distance in minutes, the shortest-path lengths should not be taken to mean walking times. However, they are generally accurate relative to other nodes, so, for example, it will take much less time from McDowell to Kirkbride Hall (K: 7) than from McDowell to Penny Hall (P: 24).
+The results from this function can be very useful for understanding the layout of the UD campus. This result in particular shows the relative distance from McDowell Hall to every other represented building. Although the weights are based on walking distance in minutes, the shortest-path lengths should not be taken to mean walking times. However, they are generally accurate relative to other nodes, so, for example, it will take much less time from McDowell to Kirkbride Hall (K: 7) than from McDowell to Penny Hall (P: 24).
 
 ---
 
