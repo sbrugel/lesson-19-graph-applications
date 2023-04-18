@@ -25,6 +25,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 ```
 
+---
+
 # Depth-First Search: Finding Course Prerequisites
 
 **We are given the course catalog of UD's Computer Science AI Concentration, consisting of all "core" courses and a few extra electives. Given this catalog, written as a directed graph with edges connecting classes to their prerequisites (as well as certain "recommended" classes), as well as a string containing a course ID, use depth-first search to list ALL classes one needs to take to be able to take this class. For example, CISC 220 requires 210, which requires 108, and strongly recommends 181. CISC 210 also requires MATH 241. So CISC 108, CISC 181, MATH 241, and CISC 210 will be listed as required courses.**:
@@ -152,6 +154,128 @@ The course requirements for CISC 481 are as follows:
 - CISC 181 (needed for 220)
 - CISC 304 (direct requirement)
 - MATH 210 (needed for 304)
+
+---
+
+# Shortest Path Between Educational Campus Buildings
+
+**Informal Description**:
+
+There are lots of educational buildings spread around campus. The locations of these can be mapped and each close pair of buildings can be thought of as connected by a distance. Given an input of 20 of these educational buildings (along with distances for each close pair of buildings) and a building to start from, we're looking to find the shortest possible distances between the "source" building and every other building. The distances between each pair of close buildings (measured in minutes based on the estimated walking distance from Google Maps) can form a walkable path between any two buildings.
+
+**Formal Description**:
+
+> - Inputs: 1) A weighted, undirected graph with nodes representing educational campus buildings and edges representing the estimated walking distance between each pair of buildings (in minutes, calculated by Google Maps) and 2) a source node from which to begin the traversal.
+> - Output: A list of the shortest path lengths between the source node and each other connected node in the graph (type: generator).
+
+**Graph Problem/Algorithm**:
+
+Single-Source Shortest Path (Dijkstra's Algorithm)
+
+**Node Building Letters**:
+
+To make the graph easier to read, each building has been assigned to a letter. This is the first letter of the building name when possible, or at the very least the representative letter is somewhere in the name.
+
+- Alison Hall (A)  
+- Brown Lab (B)  
+- Colburn Lab (C)  
+- Du Pont Hall (D)  
+- Evans Hall (E)         
+- Alfred Lerner Hall (F)  
+- Gore Hall (G)  
+- Graham Hall (H)  
+- Harker ISE Lab (I)   
+- Kirkbride Hall (K)  
+- Morris Library (L)  
+- Memorial Hall (M)  
+- Ewing Hall (N)  
+- McDowell Hall (O)  
+- Penny Hall (P)   
+- Pearson Hall (R)  
+- Spencer Lab (S)  
+- Smith Hall (T)  
+- Purnell Hall (U)  
+- Wolf Hall (W)  
+
+**Visualization**:
+
+![Graph of Distances Between Educational Campus Buildings](dijkstra.png)
+
+**Solution Code**:
+
+```python
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# algorithm to find the shortest paths from a source to all other nodes
+def find_shortest_paths(graph: nx.Graph, source: str, nodes: list[str]):
+    try:
+        length, path = nx.single_source_dijkstra(graph, source)
+        for node in nodes:
+            print(f"{node}: {length[node]}")
+    except KeyError:
+        print('Error: Invalid building supplied.')
+
+# create a new undirected Graph
+G = nx.Graph()
+
+# add the 20 building nodes
+    # string of node-xpos-ypos
+buildings = "A61 B63 C74 D65 E64 F15 G45 H85 I82 K36 L41 M52 N26 O27 P81 R84 S75 T35 U25 W66".split(' ')
+for building in buildings:
+    G.add_node(building[0], pos = (int(building[1]), int(building[2])))
+
+# add the 26 weighted, undirected edges
+    # string of node1-node2-weight
+edges = "AL7 AM4 AP2 BC2 BE3 BG5 BM2 CI3 CR1 CS1 DE2 DG1 DW3 FU1 GT2 GW3 HR4 HS3 IP4 IR3 KN2 KT2 LM3 NO5 NU2 TU2".split(' ')
+for edge in edges:
+    G.add_edge(edge[0], edge[1], weight = int(edge[2]))
+
+# find the shortest path from McDowell Hall (O) to each other building
+nodes = [building[0] for building in buildings]
+find_shortest_paths(G, 'O', nodes)
+
+# generate and display the graph
+node_positions = nx.get_node_attributes(G, 'pos')
+edge_weights = nx.get_edge_attributes(G, 'weight')
+
+nx.draw_networkx_nodes(G, pos=node_positions)
+nx.draw_networkx_labels(G, pos=node_positions, font_color='white', font_size=11, font_weight='bold')
+nx.draw_networkx_edges(G, pos=node_positions)
+nx.draw_networkx_edge_labels(G, pos=node_positions, edge_labels=edge_weights)
+plt.show()
+```
+
+**Output**:
+
+The following is the output for the called function, which is the distances from McDowell Hall (O) to all of the other educational campus building nodes:
+
+A: 22  
+B: 16  
+C: 18  
+D: 12  
+E: 14  
+F: 8  
+G: 11  
+H: 22  
+I: 21  
+K: 7  
+L: 21  
+M: 18  
+N: 5  
+O: 0  
+P: 24  
+R: 19  
+S: 19  
+T: 9  
+U: 7  
+W: 14  
+
+**Interpretation of Results**:
+
+The results from this function can be very useful for understanding the layout of the UD campus. This result in particular shows the relative distance from McDowell Hall to every other represented building. Although the weights are based on walking distance in minutes, the shortest-path lengths should not be taken to mean walking times. However, they are generally accurate relative to other nodes, so, for example, it will take much less time from McDowell to Kirkbride Hall (K: 7) than from McDowell to Penny Hall (P: 24).
+
+---
 
 # Minimum Distance to Check Every Blue Light
 
