@@ -4,9 +4,20 @@ import matplotlib.pyplot as plt
 
 def find_exam_schedule(graph: nx.DiGraph, course_id: str):
     try:
-        bfs_from_source = nx.dfs_edges(G, source=src_exam)
-        for edge in bfs_from_source:
-            print(edge)
+        colors = {}
+        # Breadth-first search with coloring for exam schedule
+        bfs_tree = nx.bfs_tree(graph, course_id)
+        for node in bfs_tree:
+            avail_colors = set(range(len(graph)))
+            for neighbor in graph.neighbors(node):
+                if neighbor in colors:
+                    avail_colors.discard(colors[neighbor])
+            # Choose the first available color for the node
+            colors[node] = min(avail_colors)
+
+        for exam, color in colors.items():
+            print(f"{exam}: Day {color+1}")
+
     except KeyError:
         print('ERROR: Invalid exam supplied.')
 
@@ -19,9 +30,9 @@ exams = "A61 B63 C74 D65 E64 F15 G45 H85 I82 J35 K36 L41 M52 N26 O27 P81 Q83 R86
 for exam in exams:
     G.add_node(exam[0], pos = (int(exam[1]), int(exam[2])))
 
-conflicts = "AB AC BD BA DF DB FH FD FI FJ FK GH HG HI HK IJ IF IM JK JL LO IN IM NO NP ON LQ PQ QR QP RS RT SR TR ST TS".split()
-for conflict in conflicts:
-    G.add_edge(conflict[0], conflict[1])
+edges = "AB AC BD BA DF DB FH FD FI FJ FK GH HG HI HK IJ IF IM JK JL LO IN IM NO NP ON LQ PQ QR QP RS RT SR TR ST TS".split()
+for edge in edges:
+    G.add_edge(edge[0], edge[1])
 
 find_exam_schedule(G, src_exam)
 
