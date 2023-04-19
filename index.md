@@ -9,7 +9,7 @@ Group Members:
 - Ryan Sanchez (ryansan@udel.edu)
 - Gavin Caulfield (gavcaul@udel.edu)
 
-Description of project
+A series of problems related to life in college that can be solved using common graphing algorithms. From course planning to finding the shortest distance to reach all blue lights on campus, this page contains a variety of problem types and their algorithmic solutions.
 
 ## Installation Code
 
