@@ -343,3 +343,115 @@ if __name__ == "__main__":
 **Interpretation of Results**:
 If you follow the path/tree shown, you will visit every blue light while
 traveling the least distance possible.
+
+
+---
+
+# Conflict-Free Exam Schedule
+
+**Informal Description**:
+UD offers many courses, and each course needs a time slot to be able to hold a final exam. However, the exams need to be scheduled in a way that prevents conflicts between exams due to students taking both classes or other conflicts. Given a list of exams that need to be administered, schedule these exams in a way that avoids conflicts with courses and students. Find a schedule that prevents any conflicting exams from being held in the same timeslot.
+
+> **Formal Description**:
+>
+> - Input: A text file formatted as an adjacency matrix, splitting up each edge
+>   by commas.
+>
+>   Example:
+>
+>   0, 0, 3, 2,  
+> 0, 0, 4, 2,  
+> 3, 4, 0, 2,  
+> 2, 2, 2, 0,
+>
+> - Output: A schedule listing a timeslot and the exam, as well as the graph.  
+>   Example:  
+>   A: Timeslot 1  
+>   B: Timeslot 2  
+>   C: Timeslot 1
+
+**Graph Problem/Algorithm**: [BFS]
+
+**Setup code**:
+
+```python
+import networkx as nx
+import matplotlib.pyplot as plt
+
+G = nx.Graph()
+
+# add the 20 exam nodes
+exams = "A49 B38 C58 D37 E26 F46 G57 H56 I55 J65 K66 L63 M45 N44 O53 P42 Q41 R51 S61 T60".split(' ')
+for exam in exams:
+    G.add_node(exam[0], pos = (int(exam[1]), int(exam[2])))
+
+edges = "AB AC BD BA CG DE ED DF DB FH FD FI FK GH HG HI HK IJ IF IM JK JL LO MN IM NO NP ON LQ PQ QR QP RS RT SR TR ST TS".split()
+for edge in edges:
+    G.add_edge(edge[0], edge[1])
+
+find_exam_schedule(G, src_exam)
+
+node_positions = nx.get_node_attributes(G, 'pos')
+edge_weights = nx.get_edge_attributes(G, 'weight')
+
+nx.draw_networkx_nodes(G, pos=node_positions)
+nx.draw_networkx_labels(G, pos=node_positions, font_color='white', font_size=11, font_weight='bold')
+nx.draw_networkx_edges(G, pos=node_positions)
+nx.draw_networkx_edge_labels(G, pos=node_positions, edge_labels=edge_weights)
+plt.show()
+
+```
+
+**Visualization**:
+
+![Graph](bfs.png)
+
+**Solution code:**
+
+```python
+def find_exam_schedule(graph: nx.DiGraph, course_id: str):
+    try:
+        colors = {}
+        # Breadth-first search with coloring for exam schedule
+        bfs_tree = nx.bfs_tree(graph, course_id)
+        for node in bfs_tree:
+            avail_colors = set(range(len(graph)))
+            for neighbor in graph.neighbors(node):
+                if neighbor in colors:
+                    avail_colors.discard(colors[neighbor])
+            # Choose the first available color for the node
+            colors[node] = min(avail_colors)
+        for exam, color in colors.items():
+            print(f"{exam}: Timeslot {color+1}")
+    except KeyError:
+        print('ERROR: Invalid exam supplied.')
+src_exam = 'A'
+
+```
+
+**Output**
+```
+A: Timeslot 1
+B: Timeslot 2
+C: Timeslot 2
+D: Timeslot 1
+G: Timeslot 1
+E: Timeslot 2
+F: Timeslot 2
+H: Timeslot 3
+I: Timeslot 1
+J: Timeslot 3
+K: Timeslot 1
+M: Timeslot 2
+L: Timeslot 1
+N: Timeslot 1
+O: Timeslot 2
+Q: Timeslot 2
+P: Timeslot 3
+R: Timeslot 1
+S: Timeslot 2
+T: Timeslot 3
+```
+
+**Interpretation of Results**:
+The exams are split up into timeslots which allow the exams to be administered without conflicts between them. 
