@@ -26,11 +26,11 @@ src_exam = 'A'
 G = nx.Graph()
 
 # add the 20 exam nodes
-exams = "A61 B63 C74 D65 E64 F15 G45 H85 I82 J35 K36 L41 M52 N26 O27 P81 Q83 R86 S75 T35".split(' ')
+exams = "A49 B38 C58 D37 E26 F46 G57 H56 I55 J65 K66 L63 M45 N44 O53 P42 Q41 R51 S61 T60".split(' ')
 for exam in exams:
     G.add_node(exam[0], pos = (int(exam[1]), int(exam[2])))
 
-edges = "AB AC BD BA DF DB FH FD FI FJ FK GH HG HI HK IJ IF IM JK JL LO IN IM NO NP ON LQ PQ QR QP RS RT SR TR ST TS".split()
+edges = "AB AC BD BA CG DE ED DF DB FH FD FI FK GH HG HI HK IJ IF IM JK JL LO MN IM NO NP ON LQ PQ QR QP RS RT SR TR ST TS".split()
 for edge in edges:
     G.add_edge(edge[0], edge[1])
 
