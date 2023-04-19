@@ -16,7 +16,7 @@ def find_exam_schedule(graph: nx.DiGraph, course_id: str):
             colors[node] = min(avail_colors)
 
         for exam, color in colors.items():
-            print(f"{exam}: Day {color+1}")
+            print(f"{exam}: Timeslot {color+1}")
 
     except KeyError:
         print('ERROR: Invalid exam supplied.')
