@@ -9,7 +9,7 @@ def find_requirements(graph: nx.DiGraph, course_id: str):
     except KeyError:
         print('ERROR: Invalid course ID supplied.')
 
-src_course = 'CISC 220'
+src_course = 'CISC 304'
 
 G = nx.DiGraph() # create a new Graph
 G.add_node('CISC 108') # add nodes & edges
